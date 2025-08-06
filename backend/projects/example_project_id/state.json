@@ -1,0 +1,31 @@
+{
+  "id": "project-1",
+  "core_mandate": "...",
+  "status": "in_progress",
+  "iteration_count": 0,
+  "current_llm_cost": 0.0,
+  "tasks": [
+    {
+      "id": "task-1",
+      "agent": "backend-dev",
+      "description": "Реализовать API для постов",
+      "status": "pending",
+      "priority": 1,
+      "dependencies": [],
+      "assigned_to": "backend-dev",
+      "artifacts_produced": ["app/models/post.rb", "app/controllers/posts_controller.rb"],
+      "subtasks": [
+        {"id": "task-1.1", "description": "Создать модель Post", "status": "pending"}
+      ]
+    }
+  ],
+  "reports": [
+    {
+      "type": "qa_functional",
+      "severity": "medium",
+      "content": "Тесты не проходят для PostsController.",
+      "created_at": "2025-08-06T12:00:00Z",
+      "related_task": "task-1"
+    }
+  ]
+}
