@@ -1,90 +1,90 @@
-# AppBuilder_AI
-Create an intelligent platform,  that fully automates the process of transforming a user's business idea into a ready-to-deploy web application.
+# AppBuilder AI
 
-# AppBuilder AI — Документация и план развития
+An intelligent platform that fully automates the process of transforming a user's business idea into a ready-to-deploy web application.
 
-## Основные возможности
-- Генерация кода (backend, frontend, миграции)
-- Генерация и запуск тестов (RSpec, test-generator)
-- Аудит безопасности (Brakeman, security-auditor)
-- Self-Correction Cycle: автоматический цикл QA → Report → Auto-fixer → Developer → QA
-- Vectorized Codebase Indexing: семантический поиск и навигация по коду
-- LLM Cost Tracking and Limiting: учёт и лимит стоимости вызовов LLM
-- Генерация документации (doc-generator)
-- MCP-агент для выгрузки документации в Plane.so
-- Управление задачами с приоритетами, зависимостями, вложенностью
-- Автоматизация анализа и создания задач на исправление
+# AppBuilder AI — Documentation & Development Plan
 
-## Примеры API
+## Core Features
+- **Code Generation**: Backend, frontend, and database migrations.
+- **Automated Testing**: Generation and execution of tests (RSpec, via `test-generator`).
+- **Security Auditing**: Automated security analysis (Brakeman, via `security-auditor`).
+- **Self-Correction Cycle**: A fully automated QA → Report → Auto-fixer → Developer → QA loop.
+- **Vectorized Codebase Indexing**: Semantic search and navigation through the generated code.
+- **LLM Cost Tracking and Limiting**: Monitoring and enforcement of LLM call cost limits.
+- **Documentation Generation**: Automated creation of technical documentation (via `doc-generator`).
+- **MCP Agent for Plane.so Export**: An agent dedicated to exporting documentation to Plane.so.
+- **Advanced Task Management**: Support for priorities, dependencies, and nested subtasks.
+- **Automated Issue Creation**: Automated analysis of reports to create actionable fixing tasks.
 
-### Инициализация проекта
-POST `/projects/init`
+## API Examples
+
+### Initialize a Project
+`POST /projects/init`
 ```json
-{"core_mandate": "Описание бизнес-идеи"}
+{"core_mandate": "A description of the business idea"}
 ```
 
-### Запуск workflow
-POST `/projects/{project_id}/dispatch`
-Ответ: `{ "status": "workflow_started" }`
+### Dispatch a Workflow
+`POST /projects/{project_id}/dispatch`
+Response: `{ "status": "workflow_started" }`
 
-### Генерация документации
-POST `/projects/{project_id}/docs`
-Ответ: `{ "status": "docs_generated", "path": "..." }`
+### Generate Documentation
+`POST /projects/{project_id}/docs`
+Response: `{ "status": "docs_generated", "path": "..." }`
 
-### Экспорт документации в Plane.so
-POST `/projects/{project_id}/export_docs`
-Тело: `{ "plane_api_token": "...", "page_id": null }`
+### Export Documentation to Plane.so
+`POST /projects/{project_id}/export_docs`
+Body: `{ "plane_api_token": "...", "page_id": null }`
 
-### Запуск тестов
-POST `/projects/{project_id}/run_tests`
+### Run Tests
+`POST /projects/{project_id}/run_tests`
 
-### Аудит безопасности
-POST `/projects/{project_id}/security_audit`
+### Run a Security Audit
+`POST /projects/{project_id}/security_audit`
 
-### Обратная связь (Live Project Context)
-POST `/projects/{project_id}/feedback`
+### Provide Feedback (Live Project Context)
+`POST /projects/{project_id}/feedback`
 ```json
-{"feedback": "Добавить поле 'телефон' в форму регистрации"}
+{"feedback": "Add a 'phone' field to the registration form"}
 ```
 
-## Тестирование
+## Testing
 
-Для запуска unit-тестов:
+To run unit tests:
 ```bash
-python -m unittest discover -s backend/tests -p "test_*.py"
-```
+python -m unittest discover -s backend/tests -p "test_*.py"```
 
-## Best practices
-- Все инструменты расширяются через `/tools/` (test_generator, auto_fixer, doc_generator, mcp_plane_exporter)
-- Агентов и их роли описывать декларативно в `agents.yaml`
-- Использовать итеративные циклы и автоматизацию для повышения качества
-- Поддерживать новые типы задач, отчётов, бизнес-метрик
-- Интеграция с внешними платформами через MCP-агентов
+## Best Practices
+- All tools are extensible via the `/tools/` directory (e.g., `test_generator`, `auto_fixer`, `doc_generator`, `mcp_plane_exporter`).
+- Agents and their roles are described declaratively in `agents.yaml`.
+- Leverage iterative cycles and automation to enhance quality.
+- The system is designed to support new types of tasks, reports, and business metrics.
+- Integration with external platforms is handled via dedicated MCP agents.
 
 ---
 
-## Следующие задачи
-1. Доработка doc-generator: генерация структурированной документации по коду и API
-2. Автоматизация экспорта документации в Plane.so (MCP-агент)
-3. Интеграция и dockerization RSpec и Brakeman, автоматизация тестов и аудита
-4. Реализация фронтенда (React + Tailwind CSS), визуализация статуса и отчётов
-5. Расширение Live Project Context: поддержка feedback, новые типы отчётов
-6. Покрытие ключевых модулей unit-тестами, ревью архитектуры и оптимизация кода
+## Next Steps
+1. Enhance `doc-generator` to produce structured documentation from code comments and API definitions.
+2. Fully implement the `mcp_plane_exporter` agent for automated documentation export to Plane.so.
+3. Integrate and dockerize RSpec and Brakeman to automate testing and auditing workflows.
+4. Implement the frontend (React + Tailwind CSS) for visualizing project status and reports.
+5. Extend the Live Project Context to handle user feedback and new report types.
+6. Achieve comprehensive unit test coverage for all key modules, conduct an architecture review, and optimize the code.
 # AppBuilder AI v4.0
 
-Интеллектуальная платформа для автоматизированной генерации, тестирования, аудита и документирования веб-приложений на основе бизнес-идеи пользователя.
+An intelligent platform for the automated generation, testing, auditing, and documentation of web applications based on a user's business idea.
 
-## Ключевые возможности
-- Итеративные циклы самокоррекции (Self-Correction Cycle)
-- Расширяемый набор инструментов: генерация тестов, автофиксация кода, генерация документации
-- Вложенные задачи, зависимости, приоритеты, назначение агентов
-- Поддержка статусов задач: pending, in_progress, awaiting_review, completed, failed
-- Автоматизация анализа отчётов (Brakeman, RSpec) и создание задач на исправление
-- Векторный индекс кодовой базы для семантического поиска
-- Учёт стоимости LLM и лимитов
+## Key Capabilities
+- **Iterative Self-Correction Cycle**: The core workflow for ensuring code quality.
+- **Extensible Toolset**: Includes tools for test generation, automated code fixing, and documentation creation.
+- **Advanced Task Management**: Supports nested tasks, dependencies, priorities, and agent assignment.
+- **Detailed Task Statuses**: `pending`, `in_progress`, `awaiting_review`, `completed`, `failed`.
+- **Automated Report Analysis**: Automatically analyzes reports from Brakeman and RSpec to create fixing tasks.
+- **Vectorized Codebase Indexing**: Enables semantic search across the entire codebase.
+- **LLM Cost Management**: Includes cost tracking and enforcement of limits.
 
-## Пример структуры задачи (state.json)
-```
+## Example Task Structure (`state.json`)
+```json
 {
   "id": "project-1",
   "status": "in_progress",
@@ -94,14 +94,14 @@ python -m unittest discover -s backend/tests -p "test_*.py"
     {
       "id": "task-1",
       "agent": "backend-dev",
-      "description": "Реализовать API для постов",
+      "description": "Implement the API for posts",
       "status": "pending",
       "priority": 1,
       "dependencies": [],
       "assigned_to": "backend-dev",
       "artifacts_produced": ["app/models/post.rb", "app/controllers/posts_controller.rb"],
       "subtasks": [
-        {"id": "task-1.1", "description": "Создать модель Post", "status": "pending"}
+        {"id": "task-1.1", "description": "Create the Post model", "status": "pending"}
       ]
     }
   ],
@@ -109,7 +109,7 @@ python -m unittest discover -s backend/tests -p "test_*.py"
     {
       "type": "qa_functional",
       "severity": "medium",
-      "content": "Тесты не проходят для PostsController.",
+      "content": "Tests are failing for PostsController.",
       "created_at": "2025-08-06T12:00:00Z",
       "related_task": "task-1"
     }
@@ -117,48 +117,48 @@ python -m unittest discover -s backend/tests -p "test_*.py"
 }
 ```
 
-## Новые инструменты и агенты
-- `/tools/test_generator.py` — генерация тестов
-- `/tools/auto_fixer.py` — автоматическое исправление кода
-- `/tools/doc_generator.py` — генерация документации
-- MCP-агент для выгрузки документации в Plane.so (см. задачи ниже)
+## New Tools and Agents
+- `/tools/test_generator.py`: Generates RSpec tests.
+- `/tools/auto_fixer.py`: Attempts to automatically fix code based on reports.
+- `/tools/doc_generator.py`: Generates and updates project documentation.
+- **MCP Agent for Plane.so Export**: A dedicated agent for documentation export.
 
-## MCP-агент для выгрузки документации в Plane.so
+## MCP Agent for Plane.so Export
 
-Файл: `/tools/mcp_plane_exporter.py`
+File: `/tools/mcp_plane_exporter.py`
 
-**Назначение:**
-Позволяет выгружать актуальную документацию проекта (Live Project Context, спецификации, ADR, отчёты) в Plane.so через API.
+**Purpose:**
+This agent allows for the export of up-to-date project documentation (Live Project Context, specifications, ADRs, reports) to Plane.so via its API.
 
-**Пример использования:**
+**Example Usage:**
 ```python
 from praisonai_core.tools.mcp_plane_exporter import export_docs_to_plane
 
 plane_api_token = "<PLANE_SO_API_TOKEN>"
 project_id = "example_project_id"
-docs = "...сгенерированная документация..."
+docs = "...generated documentation content..."
 url = export_docs_to_plane(project_id, docs, plane_api_token)
-print(f"Документация выгружена: {url}")
+print(f"Documentation has been exported: {url}")
 ```
 
-**Возможности:**
-- Создание и обновление страниц в Plane.so
-- Авторизация через API-токен
-- Возврат ссылки на страницу или описание ошибки
+**Features:**
+- Create and update pages in Plane.so.
+- Authorize via an API token.
+- Return the URL of the page or an error description.
 
-**Рекомендация:**
-Вызов MCP-агента рекомендуется интегрировать в workflow после генерации документации (doc-generator), чтобы всегда поддерживать актуальную версию знаний в Plane.so.
+**Recommendation:**
+It is recommended to integrate the MCP agent call into the workflow immediately after the `doc-generator` runs to ensure that the knowledge base in Plane.so is always up-to-date.
 
-### Новые агенты:
-- test-generator: генерация тестов (RSpec)
-- auto-fixer: автоматическое исправление кода по отчётам
-- doc-generator: генерация и обновление документации
+### New Agents:
+- `test-generator`: Generates RSpec tests.
+- `auto-fixer`: Automatically attempts to fix code based on reports.
+- `doc-generator`: Generates and updates documentation.
 
-## Расширяемость
-- Добавление новых инструментов и агентов декларативно (agents.yaml)
-- Поддержка новых типов задач, отчётов, бизнес-метрик
+## Extensibility
+- New tools and agents can be added declaratively via `agents.yaml`.
+- The system is designed to support new types of tasks, reports, and business metrics.
 
-## Задачи для развития
-- Реализовать MCP-агента, который выгружает актуальную документацию проекта (Live Project Context, спецификации, ADR, отчёты) в Plane.so через API.
-  - Агент должен поддерживать авторизацию, обновление и создание страниц в Plane.so.
-  - Интеграция должна быть расширяемой для других платформ (Notion, Confluence и др.)
+## Development Roadmap
+- Implement the MCP agent to export the project's Live Project Context (specifications, ADRs, reports) to Plane.so via its API.
+  - The agent must support authorization, page creation, and page updates in Plane.so.
+  - The integration should be extensible to support other platforms (e.g., Notion, Confluence).
